@@ -5,7 +5,7 @@ CREATE TABLE film(
 filmID int PRIMARY KEY identity (1,1),
 FilmNimetus varchar(30) not null,
 Aasta int,
-EelarveHind decimal (7,1)
+EelarveHind decimal(7,1)
 );
 SELECT * FROM film;
 --удаление БД пока нет связей
@@ -40,3 +40,49 @@ FOREIGN KEY (zanrID) REFERENCES zanr(zanrID) --references отсыл куда м
 select * from film;
 select * from zanr;
 UPDATE film SET zanrID=2 WHERE filmID=10
+
+CREATE TABLE rezisoor(
+rezID int PRIMARY KEY identity(1,1),
+nimi varchar(20) not null,
+sunniaeg DATE,
+riik varchar (20)
+);
+
+select * from rezisoor;
+
+INSERT INTO rezisoor(nimi, sunniaeg, riik)
+VALUES('Kirill', '1998-05-06', 'Eesti'),
+	('Gleb', '1994-04-19', 'Venemaa');
+
+	DELETE FROM rezisoor WHERE rezID=9;
+
+	ALTER TABLE film ADD rezID int
+SELECT * FROM film;
+select * from rezisoor;
+
+
+CREATE TABLE kinokava(
+kinoID int PRIMARY KEY identity(1,1),
+filmNimi int not null,
+piletHind varchar(10) not null,
+riik varchar (20),
+kuupaev date,
+);
+DROP TABLE kinokava;
+
+
+select * from kinokava;
+select * from rezisoor;
+SELECT * FROM film;
+select * from zanr;
+ALTER TABLE kinokava ADD CONSTRAINT fk_filmNimetus
+FOREIGN KEY (filmNimi) REFERENCES film (filmID) 
+
+INSERT INTO kinokava(filmNimi, piletHind, riik, kuupaev)
+VALUES('Titanic', '50eur', 'Eesti', '2024-04-19')
+DELETE FROM kinokava WHERE kinoID=2;
+
+ALTER TABLE film ADD CONSTRAINT fk_rezisoor
+FOREIGN KEY (rezID) REFERENCES rezisoor (rezID)
+
+UPDATE film SET rezID=1 WHERE filmID=10

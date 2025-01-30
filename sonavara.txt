@@ -33,3 +33,5 @@ Aasta int,
 EelarveHind decimal (7,1)
 );
 SELECT * FROM film;
+--удаление БД пока нет связей
+DROP TABLE film;

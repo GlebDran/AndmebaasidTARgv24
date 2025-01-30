@@ -20,3 +20,16 @@ DML - Data Manipulation Language - язык управления данных - 
 
 SQL Server Managment Studio
 XAMPP / phpMyAdmin
+
+SQL Server Managment Studio - создание БД - пишем код (пример ниже)
+
+CREATE DATABASE TARgvDranitsyn;
+
+USE TARgvDranitsyn;
+CREATE TABLE film(
+filmID int PRIMARY KEY identity (1,1),
+FilmNimetus varchar(30) not null,
+Aasta int,
+EelarveHind decimal (7,1)
+);
+SELECT * FROM film;

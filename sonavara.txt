@@ -12,4 +12,8 @@ Piirangud / ограничения
 3. NOT NULL - нельзя оставлять пустым
 4. UNIQUE - что бы не было одинаковых данных, повторных - уникальный.
 5. CHECK - выбор значений
+-----------------------------------
+SQL - Structure Query Language - язык запросв
 
+DDL - Data Definition Language - язык определения данных - CREATE TABLE, ALTER TABLE, DROP TABLE - работа с полями
+DML - Data Manipulation Language - язык управления данных - INSERT INTO, UPDATE, DELETE - работа с записями

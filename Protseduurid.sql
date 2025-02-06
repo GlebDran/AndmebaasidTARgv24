@@ -95,3 +95,4 @@ INSERT INTO uudised(
   VALUES( 'udune ilm', '2025-02-06', 'postimees', 'Lõunani on udune ilm');
 
 CREATE PROCEDURE `lisaUudis`(IN `uusTeema` VARCHAR(50), IN `paev` DATE, IN `autor` VARCHAR(25), IN `kirjeldus` TEXT) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN INSERT INTO uudised(uudiseTeema, kuupaev, autor, kirjeldus) VALUES( uusTeema, paev, autor, kirjeldus); SELECT * FROM uudised; END; 
+CALL lisauudis('windows11', '2025-02-06', 'õpetaja Pant', 'w11 ei tööta multimeedia klassis');

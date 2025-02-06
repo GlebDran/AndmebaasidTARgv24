@@ -52,3 +52,31 @@ SELECT * FROM uudised;
 END;
 --kutse
 EXEC kustutaUUdis 2;
+
+UPDATE uudised SET kirjeldus='uus kirjeldus'
+WHERE kirjeldus Like'puudub';
+SELECT * FROM uudised;
+
+--protseduur mis uuendab andmed tabelis/UPDATE
+
+CREATE Procedure uuendaKirjeldus
+@uuskirjeldus text
+AS
+BEGIN
+SELECT * FROM uudised;
+UPDATE uudised SET kirjeldus=@uuskirjeldus
+WHERE kirjeldus Like'puudub';
+SELECT * FROM uudised;
+END;
+--kutse
+EXEC uuendaKirjeldus 'uus tekst kirjeldus';
+--protseduur mis otsib ja näitab uudist esimese tähte järgi
+
+CREATE PROCEDURE otsingUudiseTeema
+@taht char(1)
+AS
+BEGIN
+SELECT * FROM uudised
+WHERE uudiseTeema LIKE @taht +'%'; --+% vse ostlanqe simvolq
+END;
+EXEC otsingUudiseTeema 'w'

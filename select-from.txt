@@ -1,0 +1,23 @@
+------------ SELECT FROM ---------
+
+CREATE TABLE laps(
+lapsID int primary key identity(1,1),
+nimi varchar(10) not null,
+pikkus smallint,
+sunniaasta smallint,
+sunnilinn varchar(20)
+);
+SELECT * FROM laps;
+INSERT INTO laps(nimi, pikkus, sunniaasta, sunnilinn)
+VALUES
+('Kati', 156, 2001, 'Tallinn'),
+('Mati', 170, 2005, 'Tartu'),
+('Ivan', 180, 1980, 'Narva'),
+('Gleb', 168, 1994, 'Tallinn'),
+('Toivo', 170, 1970, 'Viljandi'),
+('Raivo', 160, 1956, 'Haapsalu');
+--Sorteerimine
+SELECT nimi, pikkus
+FROM laps
+ORDER by pikkus ASC;
+--ASC, DESC --sortirovka po vozrastaniju / ubivaniju--------

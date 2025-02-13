@@ -16,8 +16,158 @@ VALUES
 ('Gleb', 168, 1994, 'Tallinn'),
 ('Toivo', 170, 1970, 'Viljandi'),
 ('Raivo', 160, 1956, 'Haapsalu');
+-------------------------------------------------------------------------
 --Sorteerimine
+-------------------------------------------------------------------------
+--ASC, DESC --sortirovka po vozrastaniju / ubivaniju--------
 SELECT nimi, pikkus
 FROM laps
 ORDER by pikkus ASC;
---ASC, DESC --sortirovka po vozrastaniju / ubivaniju--------
+
+SELECT nimi, pikkus
+FROM laps
+ORDER by pikkus DESC, nimi; --neskolko soritruemqh stolbcov, oni perechisljajuca 4erez zapjatuju
+
+--lapsed, mis on sunndinud peale 1990
+SELECT nimi, sunniaasta
+FROM laps
+WHERE sunniaasta >= 1990
+ORDER by nimi; --sortiruem po imeni
+
+--DISTINCT --ne pokazqvaet dublikatov (odno povtorenie)
+SELECT DISTINCT sunniaasta --primenjaeca k pervomu stolbiku
+FROM laps
+WHERE sunniaasta >2000;
+
+--BETWEEN
+--lapsed mis on sündinud (1990 - 2005)
+SELECT nimi, sunniaasta
+FROM laps
+WHERE sunniaasta BETWEEN 1990 AND 2005;
+
+SELECT nimi, sunniaasta
+FROM laps
+WHERE sunniaasta >=1990 AND sunniaasta <=2005; -----towe samoe 4to i BETWEEN tolko s matemati4eskimi zna4enijami <==>
+
+------------TEKSTOVAJA SORTIROVKA--------------
+
+--LIKE
+--näita lapsed, kelle nimi algab K
+-- % kõik võimalikud sümboolid
+-- sisaldab K täht - '%K%'
+SELECT nimi
+FROM laps
+WHERE nimi like 'K%';
+
+SELECT nimi
+FROM laps
+WHERE nimi like '%K%';
+
+--AND / OR ----
+
+SELECT nimi
+FROM laps
+WHERE nimi like '%K%' --vqvodim imja na K
+OR sunnilinn like 'Tallinn'; --libo kto s tallinna
+
+SELECT nimi
+FROM laps
+WHERE nimi like '%K%' --vqvodim imja na K
+AND sunnilinn like 'Tallinn'; --i kto s tallinna
+
+-------------------------------------------------
+--AGREGAATFUNKTSIOONID--
+-------------------------------------------------
+SUM, AVG, MIN, MAX, COUNT
+SELECT COUNT(nimi) AS lasteArv --vqvodit kolvo detej po stolbiku NIMI i pokazqvaet eto v kolonke LASTEARV! !! NO NE SOZDAJOT EE!! a prosto vqvodit tak kak mq ee nazvali
+FROM laps;
+
+SELECT SUM(pikkus) AS 'summarne pikkus' --esli hotim s probelom to v kovqchkah
+FROM laps;
+
+
+SELECT AVG(pikkus) AS 'keskmine pikkus'
+FROM laps
+WHERE sunnilinn='Tallinn';
+
+SELECT sunniaasta, COUNT(*) AS LasteArv
+FROM laps
+GROUP by sunniaasta;
+
+----HAVING
+--keskmine pikkus iga aasta järgi
+SELECT sunniaasta, AVG(pikkus) AS LasteArv
+FROM laps
+GROUP by sunniaasta;
+
+SELECT sunniaasta, AVG(pikkus) AS keskmine
+FROM laps
+WHERE sunniaasta = 2001
+GROUP by sunniaasta
+
+NOT ----
+---pokazhet vsjo krome 2001
+SELECT sunniaasta, AVG(pikkus) AS keskmine
+FROM laps
+WHERE NOT sunniaasta = 2001
+GROUP by sunniaasta
+
+---------------------------------------------
+
+CREATE TABLE loom(
+loomID int PRIMARY KEY identity(1,1),
+loomNimi varchar(50),
+lapsID int,
+FOREIGN KEY (lapsID) REFERENCES laps(lapsID)
+);
+INSERT INTO loom(loomNimi, lapsID)
+VALUES('kass Barsik', 1),
+('koer Tolik', 1),
+('koer Stefani', 2),
+('kass Murzik', 3),
+('kass Roksi', 3),
+('kilpkonn', 3);
+
+SELECT * FROM loom;
+
+--SELECT SEOTUD TABELITE PÕHJAL
+
+SELECT * FROM loom, laps; -- ei näita õiged andmed / umnozhaet znachenija mezdu soboj
+
+soedinjajet tablicq i normalno pokazqvaet dannqe
+SELECT * FROM loom
+INNER JOIN laps
+ON loom.lapsID=laps.lapsID;
+
+--lihtne vaade -- towe samoe 4to vqshe
+SELECT * FROM loom, laps
+WHERE loom.lapsID=laps.lapsID;
+
+----------------------------------
+delaem psevdonimq 4tob ne bqlo mnogo lishnih polej pri pokaze
+SELECT l.loomnimi, la.nimi, la.sunniaasta (l.loomnimi -pokazhet imenno loomnimi)
+FROM loom l, laps la --- loom stanovica l 
+WHERE l.lapsID=la.lapsID;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

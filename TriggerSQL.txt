@@ -93,3 +93,12 @@ WHERE linnID=3;
 SELECT * FROM linnad;
 SELECT * FROM logi;
 
+------ОТОБРАЗИТЬ СОХРАНЕННЫЕ ТРИГГЕРЫ ------
+
+SELECT
+name,
+is_instead_of_trigger
+FROM
+sys.triggers
+WHERE
+type='TR'

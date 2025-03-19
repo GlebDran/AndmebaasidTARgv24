@@ -102,3 +102,5 @@ FROM
 sys.triggers
 WHERE
 type='TR'
+------------------
+SELECT * FROM sys.triggers;

@@ -1,0 +1,29 @@
+-----------TRIGERID ---------
+
+CREATE database trigerTARgv24;
+use trigerTARgv24;
+Create table linnad(
+linnID int PRIMARY KEY IDENTITY(1,1),
+linnanimi varchar(15) not null,
+rahvaarv int);
+
+Create table logi(
+id int PRIMARY KEY IDENTITY(1,1),
+aeg DATETIME,
+toiming  varchar(100),
+andmed TEXT
+)
+--INSERT TRIGER jälgib andmete sisestamine tabelis linnad ja teeb vastava kirje tabelis LOGI
+CREATE TRIGGER linnaLisamine
+ON linnad --tabelinimi, mis on vaja jälgida
+FOR INSERT
+AS
+INSERT INTO logi(aeg, toiming, andmed) --getdate v aeg, 'tehtud insert käsk v toiming', ...
+SELECT 
+GETDATE(),'on tehtud insert käsk', inserted.linnanimi FROM inserted;
+
+--trigeri tegevuse kontroll
+INSERT INTO linnad(linnanimi, rahvaarv)
+VALUES('Tallinn', 600000);
+SELECT * FROM linnad;
+SELECT * FROM logi;
